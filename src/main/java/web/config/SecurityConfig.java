@@ -11,7 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import web.config.handler.LoginSuccessHandler;
 
-@Configuration
+@Configuration      //можно не писать т.к. @EnableWebSecurity уже подразумевает @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -22,18 +22,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin()
-                // указываем страницу с формой логина
-                .loginPage("/login")
-                //указываем логику обработки при логине
-                .successHandler(new LoginSuccessHandler())
-                // указываем action с формы логина
-                .loginProcessingUrl("/login")
-                // Указываем параметры логина и пароля с формы логина
-                .usernameParameter("j_username")
-                .passwordParameter("j_password")
-                // даем доступ к форме логина всем
-                .permitAll();
+//        http.formLogin()
+//                // указываем страницу с формой логина
+//                .loginPage("/login")
+//                //указываем логику обработки при логине
+//                .successHandler(new LoginSuccessHandler())
+//                // указываем action с формы логина
+//                .loginProcessingUrl("/login")
+//                // Указываем параметры логина и пароля с формы логина
+//                .usernameParameter("j_username")
+//                .passwordParameter("j_password")
+//                // даем доступ к форме логина всем
+//                .permitAll();
+
+             //             решение перенаправления (комменты)
+
+                http
+                        .formLogin()
+                        .loginPage("/login")
+                        .usernameParameter("j_username")
+                        .passwordParameter("j_password")
+                        .loginProcessingUrl("/login")
+                        .successHandler(new LoginSuccessHandler())
+                        .permitAll();
+
+
+
 
         http.logout()
                 // разрешаем делать логаут всем

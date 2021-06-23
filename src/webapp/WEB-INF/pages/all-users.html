@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>All users</title>
+  <style>
+    table th, table td {
+      padding: 15px;
+    }
+  </style>
+</head>
+<body>
+<h1>Users list</h1>
+<table border="1" cellpadding="4" cellspacing="0">
+  <tr>
+    <th>No</th>
+    <th>Name</th>
+    <th>Surname</th>
+    <th>Email</th>
+    <th colspan="3">Action</th>
+  </tr>
+  <tr th:each="user, state : ${users}">
+    <td th:utext="${state.count}">No</td>
+    <td th:utext="${user.name}">Name</td>
+    <td th:utext="${user.surname}">Surname</td>
+    <td th:utext="${user.email}">Email</td>
+    <td> <a th:href="@{user-details/{id}(id=${user.id})}"><input type="button" value="Details" /></a></td>
+    <td> <a th:href="@{user-update/{id}(id=${user.id})}"><input type="button" value="Update user" /></a></td>
+    <td> <form th:method="DELETE" th:action="@{user-delete/{id}(id=${user.id})}"><input type="submit" value="Delete user"/></form></td>
+  </tr>
+</table>
+<br/>
+<input type="button" value="Add user" onclick="window.location.href='/create'"/>
+<br/><br/><br/>
+<input type="button" value="Go to user page" onclick="window.location.href='/test/user'"/>
+<br/><br/><br/>
+<input type="button" value="Go to admin page" onclick="window.location.href='/test/admin'"/>
+</body>
+</html>
